@@ -54,9 +54,8 @@ int SWITCH() {
  */
 void CLEAR_SWITCH() {
   for (int i = 2; i < 5; ++i) {
-    state[i] = HIGH;
-    lastState[i] = HIGH;
-    lastDebounceTime[i] = 0;
+    state[i] = lastState[i] = digitalRead(i);
+    lastDebounceTime[i] = millis();
   }
 }
 
@@ -134,6 +133,7 @@ int INIT() {
     delay(1000);
   }
   num = 50;
+  CLEAR_SWITCH();
   return 0;
 }
 
@@ -252,6 +252,7 @@ int MODE3() {
     delay(1000);
   }
   num = 50;
+  CLEAR_SWITCH();
   return 0;
 }
 
@@ -262,7 +263,6 @@ int MODE3() {
  * INIT, NONE, MODE1, MODE2, MODE3 중 하나를 실행한다.
  */
 void loop() {
-  CLEAR_SWITCH();
   if (mode == -1) {
     mode = INIT();
   } else if (mode == 0) {

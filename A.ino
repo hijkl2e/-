@@ -54,9 +54,8 @@ int SWITCH() {
  */
 void CLEAR_SWITCH() {
   for (int i = 2; i < 5; ++i) {
-    state[i] = HIGH;
-    lastState[i] = HIGH;
-    lastDebounceTime[i] = 0;
+    state[i] = lastState[i] = digitalRead(i);
+    lastDebounceTime[i] = millis();
   }
 }
 
@@ -135,6 +134,7 @@ int INIT() {
   }
   DIGIT1(0);
   LED(1);
+  CLEAR_SWITCH();
   while (true) {
     int s = SWITCH();
     if ((s == 2 || s == 3) && state[s]) {
@@ -256,7 +256,6 @@ void MODE3() {
  * INIT, MODE1, MODE2 중 하나를 실행한다.
  */
 void loop() {
-  CLEAR_SWITCH();
   if (mode == 0) {
     mode = INIT();
   } else if (mode == 1) {
