@@ -7,7 +7,7 @@ int mode = 0;
 int num = -1;
 
 /**
- * @brief 초기 핀 설정 및 스위치 상태 초기화 함수
+ * @brief 초기 핀 설정 함수
  */
 void setup() {
   for (int i = 2; i < 5; ++i) { // 스위치
